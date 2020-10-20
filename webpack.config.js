@@ -33,13 +33,26 @@ module.exports = {
       // loader的执行顺序是从下到上，从右到左
       use: [
         'style-loader',
-        'css-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            // Enables/Disables or setups number of loaders applied before CSS loader.
+            // 通过import引入的css文件，在引入之前也需要走两个loader（sass-loader和postcss-loader
+            importLoaders: 2,
+            // css模块化引入
+            // modules: true
+          }
+        },
         // 将sass文件转为css文件
         'sass-loader',
         // 添加厂商前缀
         'postcss-loader'
       ]
-    }]
+    },{
+      // 字体文件也通过file-loader打包
+      test: /\.(eot|ttf|svg|woff)$/,
+      use: 'file-loader',
+    },]
   },
   // 打包文件
   output: {
