@@ -11,15 +11,6 @@ module.exports = {
       // 遇到以.jpg结尾的文件，就使用file-loader来进行打包
       test: /\.(jpeg|jpg|png|gif)$/,
       use: {
-        // loader: 'file-loader',
-        // options: {
-        //   // placeholder 占位符
-        //   // 打包生成的图片的名称由原先文件名称和原先文件后缀组成
-        //   name: '[name]_[hash].[ext]',
-        //   // 遇到以.jpg结尾的文件，打包后会放到dist目录下的该路径中
-        //   outputPath: 'images/'
-        // }
-
         // url-loader和file-loader不一样，会把图片转变成base64格式存放在main.js文件中，而不是生成一个新的图片文件
         loader: 'url-loader',
         options: {
@@ -32,6 +23,22 @@ module.exports = {
           limit: 204800
         }
       }
+    },{
+      test: /\.css$/,
+      // css-loader 分析css文件间的引用关系，然后把所有css文件合并成一段css
+      // style-loader 在得到css-loader生成的css后，挂载到页面的header部分
+      use: ['style-loader', 'css-loader'],
+    },{
+      test: /\.scss$/,
+      // loader的执行顺序是从下到上，从右到左
+      use: [
+        'style-loader',
+        'css-loader',
+        // 将sass文件转为css文件
+        'sass-loader',
+        // 添加厂商前缀
+        'postcss-loader'
+      ]
     }]
   },
   // 打包文件
