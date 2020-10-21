@@ -6,7 +6,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   mode: 'production',
   // 从哪个文件开始打包
-  entry: './src/index.js',
+  // entry: './src/index.js',
+  entry: {
+    // 如果没设置output中的打包文件名，将会以main.js作为打包后的文件名
+    main: './src/index.js',
+    sub: './src/index.js',
+  },
   // 模块打包配置
   module: {
     // 打包规则
@@ -67,10 +72,13 @@ module.exports = {
   // 打包文件
   output: {
     // 打包好的文件的名字
-    filename: 'main.js',
+    // name对应entry对应的key值（当打包生成多个文件时，就不能指定具体的打包名称了）
+    filename: '[name].js',
     // 打包出的文件路径，绝对路径
     // __dirname指的是本文件所在目录的路径
     // 将两个参数相结合
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    // 会在打包后，html对生成的js文件引用时，路径前面加入该地址
+    publicPath: 'http://cdn.com'
   }
 }
