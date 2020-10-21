@@ -4,13 +4,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
+  // sourceMap实际上是一个对应关系，它知道dist目录下main.js文件第xx行对应src目录下index.js文件中的第xx行
+  // https://webpack.js.org/configuration/devtool/
+  // inline: map文件会通过base64的方式写在main.js文件中
+  // cheap: 不加cheap会精确到第几行第几列，加cheap只会知道行数
+  // module: 不仅关注业务代码，还关注第三方库的代码
+  // eval: 通过eval()来生成sourceMap，但是可能不够全面
+  // 最佳实践: development eval-cheap-module-source-map  /  production cheap-module-source-map
+  devtool: 'eval-cheap-module-source-map',
   // 从哪个文件开始打包
   // entry: './src/index.js',
   entry: {
     // 如果没设置output中的打包文件名，将会以main.js作为打包后的文件名
     main: './src/index.js',
-    sub: './src/index.js',
   },
   // 模块打包配置
   module: {
@@ -79,6 +86,6 @@ module.exports = {
     // 将两个参数相结合
     path: path.resolve(__dirname, 'dist'),
     // 会在打包后，html对生成的js文件引用时，路径前面加入该地址
-    publicPath: 'http://cdn.com'
+    // publicPath: 'http://cdn.com'
   }
 }
