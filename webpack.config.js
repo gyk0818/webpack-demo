@@ -1,4 +1,7 @@
 const path = require('path');
+// 使用plugin时需要先引入
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -54,6 +57,13 @@ module.exports = {
       use: 'file-loader',
     },]
   },
+  // plugin 可以在webpack运行到某个时刻的时候，帮你做一些事情，有点类似于生命周期函数
+  // HtmlWebpackPlugin插件会在打包结束后自动生成html文件，并把打包生成的js自动引入到该html文件中
+  // CleanWebpackPlugin插件在每次打包前帮助删除文件夹，默认清除output下设置的path路径
+  plugins: [new HtmlWebpackPlugin({
+    // 指定模板文件
+    template: 'src/index.html'
+  }),new CleanWebpackPlugin()],
   // 打包文件
   output: {
     // 打包好的文件的名字
