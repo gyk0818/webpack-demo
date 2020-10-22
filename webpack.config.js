@@ -1,7 +1,9 @@
+// 修改webpack配置文件之后要重启服务器
 const path = require('path');
 // 使用plugin时需要先引入
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -29,7 +31,12 @@ module.exports = {
     proxy: {
       // A request to /api/users will now proxy the request to http://localhost:3000/api/users
       '/api': 'http://localhost:3000'
-    }
+    },
+    // devServer 开启 Hot Module Replacement热模块更新功能
+    // HRM 可以只更新页面上的css文件，不影响页面内容
+    hot: true,
+    // 即便HMR没有生效，也不要让浏览器自动重新刷新
+    hotOnly: true
   },
   // 模块打包配置
   module: {
@@ -89,7 +96,11 @@ module.exports = {
     template: 'src/index.html',
     // watch模式下会删除index.html文件，加入该配置项就可以不删除文件且不影响之前的配置
     cache: false
-  }),new CleanWebpackPlugin()],
+  }),
+  new CleanWebpackPlugin(),
+  // HMR插件
+  new webpack.HotModuleReplacementPlugin()
+  ],
   // 打包文件
   output: {
     // 所有的打包生成的文件的引用前面都加个根路径
