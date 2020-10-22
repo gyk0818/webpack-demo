@@ -3,9 +3,8 @@ const express = require('express');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const config = require('./webpack.config.js');
-// 在node中直接使用webpack
-// 在命令行里使用webpack
-const complier = webpack(config); // webpack的编译器，传入的参数是webpack配置文件
+// webpack的编译器，传入的参数是webpack配置文件
+const complier = webpack(config); 
 // app是express的实例
 const app = express();
 // 使用中间件，接收两个参数
