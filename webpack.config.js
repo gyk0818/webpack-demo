@@ -42,8 +42,10 @@ module.exports = {
   module: {
     // 打包规则
     rules: [{
+      // test属性，识别出哪些文件会被转换
       // 遇到以.jpg结尾的文件，就使用file-loader来进行打包
       test: /\.(jpeg|jpg|png|gif)$/,
+      // use属性，定义出在进行转换时使用哪个loader
       use: {
         // url-loader和file-loader不一样，会把图片转变成base64格式存放在main.js文件中，而不是生成一个新的图片文件
         loader: 'url-loader',
@@ -86,7 +88,18 @@ module.exports = {
       // 字体文件也通过file-loader打包
       test: /\.(eot|ttf|svg|woff)$/,
       use: 'file-loader',
-    },]
+    },{
+      test: /\.js$/,
+      // 如果是node_modules文件夹中的代码，就不使用babel进行转译
+      exclude: /node_modules/,
+      loader: "babel-loader",
+      options: {
+        "presets": [["@babel/preset-env", {
+          // 根据业务代码按需加载babel功能，可以有效减少babel运行时间和babel打包大小
+          useBuiltIns: "usage"
+        }]]
+      }
+    }]
   },
   // plugin 可以在webpack运行到某个时刻的时候，帮你做一些事情，有点类似于生命周期函数
   // HtmlWebpackPlugin插件会在打包结束后自动生成html文件，并把打包生成的js自动引入到该html文件中
