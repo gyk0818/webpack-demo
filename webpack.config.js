@@ -19,6 +19,18 @@ module.exports = {
     // 如果没设置output中的打包文件名，将会以main.js作为打包后的文件名
     main: './src/index.js',
   },
+  devServer: {
+    // 通过devServer启动的服务器的根路径
+    contentBase: './dist',
+    // 当运行webpack-dev-server时，会自动打开浏览器进入对应的地址
+    open: true,
+    // proxy配置 用于跨域
+    // Proxying some URLs can be useful when you have a separate API backend development server and you want to send API requests on the same domain.
+    proxy: {
+      // A request to /api/users will now proxy the request to http://localhost:3000/api/users
+      '/api': 'http://localhost:3000'
+    }
+  },
   // 模块打包配置
   module: {
     // 打包规则
@@ -74,10 +86,14 @@ module.exports = {
   // CleanWebpackPlugin插件在每次打包前帮助删除文件夹，默认清除output下设置的path路径
   plugins: [new HtmlWebpackPlugin({
     // 指定模板文件
-    template: 'src/index.html'
+    template: 'src/index.html',
+    // watch模式下会删除index.html文件，加入该配置项就可以不删除文件且不影响之前的配置
+    cache: false
   }),new CleanWebpackPlugin()],
   // 打包文件
   output: {
+    // 所有的打包生成的文件的引用前面都加个根路径
+    publicPath: '/',
     // 打包好的文件的名字
     // name对应entry对应的key值（当打包生成多个文件时，就不能指定具体的打包名称了）
     filename: '[name].js',
@@ -87,5 +103,5 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     // 会在打包后，html对生成的js文件引用时，路径前面加入该地址
     // publicPath: 'http://cdn.com'
-  }
+  },
 }

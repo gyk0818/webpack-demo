@@ -37,4 +37,4 @@
 // var root = document.getElementById('root');
 // root.innerHTML = '<div class="iconfont icon-success">abc</div>';
 
-consele.log('hello world')
+console.log('hello world!');
