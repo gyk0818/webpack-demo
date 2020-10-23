@@ -93,19 +93,28 @@ module.exports = {
       // 如果是node_modules文件夹中的代码，就不使用babel进行转译
       exclude: /node_modules/,
       loader: "babel-loader",
-      options: {
-        "presets": [["@babel/preset-env", {
-          // 即将运行的浏览器版本 如果该列表中浏览器版本比较高 则不会进行babel转译
-          "targets": {
-            "edge": "17",
-            "firefox": "60",
-            "chrome": "67",
-            "safari": "11.1",
-          },
-          // 根据业务代码按需加载babel功能，可以有效减少babel运行时间和babel打包大小
-          "useBuiltIns": "usage"
-        }]]
-      }
+      // options里的内容可以放到根目录下的.babelrc文件里
+      // options: {
+      //   // "presets": [["@babel/preset-env", {
+      //   //   // 即将运行的浏览器版本 如果该列表中浏览器版本比较高 则不会进行babel转译
+      //   //   "targets": {
+      //   //     "edge": "17",
+      //   //     "firefox": "60",
+      //   //     "chrome": "67",
+      //   //     "safari": "11.1",
+      //   //   },
+      //   //   // 根据业务代码按需加载babel功能，可以有效减少babel运行时间和打包后的文件大小
+      //   //   "useBuiltIns": "usage"
+      //   // }]]
+
+      //   // 不会污染全局环境
+      //   "plugins": [["@babel/plugin-transform-runtime", {
+      //     "corejs": 2,
+      //     "helpers": true,
+      //     "regenerator": true,
+      //     "useESModules": false,
+      //   }]]
+      // }
     }]
   },
   // plugin 可以在webpack运行到某个时刻的时候，帮你做一些事情，有点类似于生命周期函数

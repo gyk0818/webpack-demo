@@ -66,7 +66,8 @@
 // }
 
 // 3-11
-import "@babel/polyfill";
+// UI组件库开发时不能使用babel-polyfill，因为会生成全局变量，会污染全局环境
+// import "@babel/polyfill";
 
 const arr = [
     new Promise(() => {}),
