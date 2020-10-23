@@ -1,4 +1,4 @@
-# webpack4.0学习
+# webpack学习
 
 ## 相关资料
 1. Webpack中文文档： [https://webpack.docschina.org/concepts/](https://webpack.docschina.org/concepts/)
