@@ -95,8 +95,15 @@ module.exports = {
       loader: "babel-loader",
       options: {
         "presets": [["@babel/preset-env", {
+          // 即将运行的浏览器版本 如果该列表中浏览器版本比较高 则不会进行babel转译
+          "targets": {
+            "edge": "17",
+            "firefox": "60",
+            "chrome": "67",
+            "safari": "11.1",
+          },
           // 根据业务代码按需加载babel功能，可以有效减少babel运行时间和babel打包大小
-          useBuiltIns: "usage"
+          "useBuiltIns": "usage"
         }]]
       }
     }]
