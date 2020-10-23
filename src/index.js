@@ -79,16 +79,21 @@
 // })
 
 
-// 3-13
-import "@babel/polyfill";
+// // 3-13
 
-import React, { Component } from 'react';
-import ReactDom from 'react-dom';
+// import React, { Component } from 'react';
+// import ReactDom from 'react-dom';
 
-class App extends Component {
-    render() {
-        return <div>Hello World</div>
-    }
-}
+// class App extends Component {
+//     render() {
+//         return <div>Hello World</div>
+//     }
+// }
 
-ReactDom.render(<App />, document.getElementById('root'));
+// ReactDom.render(<App />, document.getElementById('root'));
+
+
+// 4-1
+import { add } from './math';
+
+add(1, 2);

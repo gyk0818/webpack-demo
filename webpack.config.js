@@ -130,10 +130,13 @@ module.exports = {
   // HMR插件
   new webpack.HotModuleReplacementPlugin()
   ],
+  optimization: {
+    usedExports: true
+  },
   // 打包文件
   output: {
     // 所有的打包生成的文件的引用前面都加个根路径
-    publicPath: '/',
+    // publicPath: '/',
     // 打包好的文件的名字
     // name对应entry对应的key值（当打包生成多个文件时，就不能指定具体的打包名称了）
     filename: '[name].js',
