@@ -3,7 +3,7 @@
 // console.log(_.join(['a','b','c'], '***'));
 
 function getComponent() {
-	return import('lodash').then(({ default: _ }) => {
+	return import(/* webpackChunkName: "lodash" */'lodash').then(({ default: _ }) => {
 		var element = document.createElement('div');
 		element.innerHTML = _.join(['Gui', 'Yukun'], '-');
 		return element;
